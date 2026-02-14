@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panneaux Photovoltaïques - Devis Gratuit</title>
+<style>
+  body {font-family: Arial,sans-serif; margin:0; padding:0; background:#f0f4f8; color:#333;}
+  header {background:linear-gradient(135deg,#0057b7,#ffd700); color:#fff; text-align:center; padding:80px 20px;}
+  header h1 {font-size:3em; margin-bottom:10px;}
+  header p {font-size:1.3em;}
+  
+  section {padding:60px 20px; max-width:1100px; margin:0 auto;}
+  .section-title {text-align:center; margin-bottom:40px;}
+
+  /* AVANTAGES */
+  .advantages {display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px;}
+  .advantage {background:#fff; padding:30px; border-radius:10px; flex:1 1 280px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+  .advantage h3 {color:#0057b7;}
+
+  /* FORMULAIRE */
+  form {background:#fff;padding:40px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1); max-width:500px; margin:0 auto;}
+  form input, form button {width:100%; padding:15px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc; font-size:1em;}
+  form button {background:#0057b7; color:#ffd700; border:none; cursor:pointer; font-weight:bold; transition:0.3s;}
+  form button:hover {background:#004494; color:#fff;}
+  #merci-message {display:none; color:green; text-align:center; font-weight:bold; margin-top:15px;}
+
+  /* TESTIMONIALS */
+  .testimonials {display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px;}
+  .testimonial {background:#fff; padding:25px; border-radius:10px; flex:1 1 280px; box-shadow:0 5px 15px rgba(0,0,0,0.1); font-style:italic;}
+
+  /* FAQ */
+  .faq {display:flex; flex-direction:column; gap:15px;}
+  .faq-item {background:#fff; padding:20px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+  .faq-item strong {color:#0057b7;}
+
+  /* CTA flottant */
+  .cta {position:fixed; bottom:25px; right:25px; background:#ffd700; color:#0057b7; padding:18px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.3); transition:0.3s; z-index:1000;}
+  .cta:hover {background:#ffc700; transform:scale(1.05);}
+
+  @media(max-width:768px){.advantages,.testimonials,.faq{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Passez à l’énergie solaire</h1>
+  <p>Installez vos panneaux photovoltaïques et réduisez vos factures tout en préservant la planète.</p>
+</header>
+
+<section>
+  <h2 class="section-title">Nos avantages</h2>
+  <div class="advantages">
+    <div class="advantage"><h3>Économies immédiates</h3><p>Réduisez vos factures dès la première année.</p></div>
+    <div class="advantage"><h3>Écologique</h3><p>Produisez votre propre énergie et contribuez à la planète.</p></div>
+    <div class="advantage"><h3>Installation facile</h3><p>Nos experts s’occupent de tout, du devis à la mise en service.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Demandez votre devis gratuit</h2>
+  <form id="contactForm">
+    <input type="text" name="nom" placeholder="Votre Nom" required>
+    <input type="email" name="email" placeholder="Votre Email" required>
+    <input type="tel" name="telephone" placeholder="Votre Téléphone" required>
+    <button type="submit">Envoyer</button>
+  </form>
+  <div id="merci-message">Merci pour votre demande ! Nous vous recontacterons bientôt.</div>
+</section>
+
+<section>
+  <h2 class="section-title">Témoignages</h2>
+  <div class="testimonials">
+    <div class="testimonial">“Installation rapide et efficace.” – Julien L.</div>
+    <div class="testimonial">“Équipe très professionnelle.” – Marie D.</div>
+    <div class="testimonial">“Excellente expérience, je recommande !” – Ahmed K.</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">FAQ</h2>
+  <div class="faq">
+    <div class="faq-item"><strong>Quels sont les coûts ?</strong><p>Le devis est gratuit et personnalisé.</p></div>
+    <div class="faq-item"><strong>Temps d’installation ?</strong><p>1 à 3 jours selon le projet.</p></div>
+    <div class="faq-item"><strong>Est-ce rentable ?</strong><p>Oui, dès la première année.</p></div>
+  </div>
+</section>
+
+<div class="cta" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'})">
+  Demander un devis
+</div>
+
+<script>
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', function(event){
+  event.preventDefault(); // Empêche le refresh
+
+  const data = new FormData(form);
+  const jsonData = {};
+  data.forEach((value,key) => jsonData[key] = value);
+
+  // 🔹 Remplace l'URL ci-dessous par ton URL Webhook Zapier
+  fetch('https://hooks.zapier.com/hooks/catch/26442038/uejusse/', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(jsonData)
+  })
+  .then(response => {
+    if(response.ok){
+      document.getElementById('merci-message').style.display='block';
+      form.reset();
+    } else {
+      alert('Erreur lors de l’envoi, réessayez.');
+    }
+  })
+  .catch(error => alert('Erreur : '+error));
+});
+</script>
+
+</body>
+</html>
